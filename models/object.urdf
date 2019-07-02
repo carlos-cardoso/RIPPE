@@ -1,0 +1,19 @@
+<robot name="object">
+    <link name="body">
+      <inertial>
+        <origin rpy="0.0 0.0 0.0" xyz="-0.01077049  0.02101422  0.02620853" />
+        <mass value="0.1" />
+        <inertia ixx="3.044190016438884e-08" ixy="-3.055335448101235e-09" ixz="1.0911303479391728e-10" iyy="3.147242820910636e-08" iyz="-1.1455577425419407e-11" izz="3.3989177408120413e-08" />
+      </inertial>
+      <visual name="visual">
+        <geometry>
+          <mesh filename="cvx_lemon.stl" />
+        </geometry>
+      </visual>
+      <collision name="box_01_geom">
+        <geometry>
+          <mesh filename="cvx_lemon.stl" />
+        </geometry>
+      </collision>
+    </link>
+  </robot>

@@ -1,0 +1,72 @@
+<sdf version="1.6">
+
+    <model name="robot">
+        <pose>0.02 0.0 0.0 1.57 0.0 0.0</pose>
+        <link name="world"></link>
+
+        <link name="robotlink">
+            <inertial>
+                <mass>0.5</mass>
+                <!-- inertia based on solid sphere 2/5 mr^2 -->
+                <inertia>
+                    <ixx>2.37e-6</ixx>
+                    <iyy>2.37e-6</iyy>
+                    <izz>2.37e-6</izz>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyz>0</iyz>
+                </inertia>
+            </inertial>
+            <collision name="robot_collision">
+                <geometry>
+                    <mesh>
+                        <uri>cvx_hook.obj</uri>
+                        <scale>0.001 0.001 0.001</scale>
+                    </mesh>
+                </geometry>
+                <surface>
+                    <bounce>
+                        <restitution_coefficient>0.0 </restitution_coefficient>
+                        <threshold>0.05</threshold>
+                    </bounce>
+                </surface>
+            </collision>
+            <sensor name='my_contact' type='contact'>
+                <contact>
+                    <collision>robot_collision</collision>
+                </contact>
+                <update_rate> 5 </update_rate>
+            </sensor>
+            <visual name="visual">
+                <geometry>
+                    <mesh>
+                        <uri>cvx_hook.obj</uri>
+                        <scale>0.001 0.001 0.001</scale>
+                    </mesh>
+                </geometry>
+                <material>
+                    <ambient>0.19225 0.19225 0.19225 1.0</ambient>
+                    <diffuse>0.50754 0.50754 0.50754 1.0</diffuse>
+                    <specular>0.508273 0.508273 0.508273 1.0</specular>
+                    <emissive>0.0 0.0 0.0 0.0</emissive>
+                </material>
+            </visual>
+            <gravity>0</gravity>
+            <self_collide>0</self_collide>
+            <kinematic>0</kinematic>
+        </link>
+        <joint name="robotprismatic" type="prismatic">
+            <pose>0 -0.12 0 0 0 0</pose>
+            <child>robotlink</child>
+            <parent>world</parent>
+            <axis>
+                <limit>
+                    <lower>0.0</lower>
+                    <upper>0.12</upper>
+                </limit>
+                <xyz>-1 0 0</xyz>
+            </axis>
+        </joint>
+    </model>
+
+</sdf>

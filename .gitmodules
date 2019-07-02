@@ -1,0 +1,3 @@
+[submodule "affordance-datasets"]
+	path = affordance-datasets
+	url = https://github.com/vislab-tecnico-lisboa/affordance-datasets.git
