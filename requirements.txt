@@ -1,0 +1,8 @@
+numpy
+pandas
+numpy-stl
+scikit-optimize
+tqdm
+matplotlib
+joblib
+pybullet
