@@ -135,13 +135,13 @@ def reset_world():
 
 
 def load_object():
-    boxId = p.loadURDF("object.urdf")
+    boxId = p.loadURDF("models/object.urdf")
     return boxId
 
 
 def load_robot(toolname):
   print(toolname)
-  toolId = p.loadSDF("{}.sdf".format(toolname))
+  toolId = p.loadSDF("models/{}.sdf".format(toolname))
   return toolId
 
 
@@ -161,12 +161,12 @@ def get_obj_xy(objID):
 
 def gen_object(weight=0.3, mu1=0.3, mu2=0.3, slip=0.0, iner=np.eye(3), center_of_mass=np.zeros((3,)),
                object_name="object", startpose=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)):
-  tree = ET.parse('template_object.urdf')
+  tree = ET.parse('models/template_object.urdf')
   root = tree.getroot()
 
   world = root[0]
   for mesh in root.findall(".//mesh"):
-    mesh.attrib['filename'] = "cvx_{}.stl".format(object_name)
+    mesh.attrib['filename'] = "models/cvx_{}.stl".format(object_name)
 
   # Set model mass
   for mass in root.findall(".//mass"):
@@ -183,20 +183,20 @@ def gen_object(weight=0.3, mu1=0.3, mu2=0.3, slip=0.0, iner=np.eye(3), center_of
     inert.attrib['iyz'] = str(iner[1, 2])
     inert.attrib['izz'] = str(iner[2, 2])
 
-  tree.write('object.urdf')
+  tree.write('models/object.urdf')
 
 
 def gen_robot(action_name, tool_name):
-  tree = ET.parse('template_robot_{}.sdf'.format(action_name))
+  tree = ET.parse('models/template_robot_{}.sdf'.format(action_name))
   root = tree.getroot()
 
   # Set robot pose
   for model in root.findall(".//model[@name='robot']"):
     for uri in model.findall(".//uri"):
-      uri.text = "cvx_{}.obj".format(tool_name)
+      uri.text = "models/cvx_{}.obj".format(tool_name)
 
 
-  tree.write('robot.sdf')
+  tree.write('models/robot.sdf')
 
 
 def cost(x,y):
@@ -209,7 +209,7 @@ def gen_run_experiment(pbar, param_names,object_name="yball", tools=("rake","sti
                        # actions=("tap_from_right",),
                        ):
   # get properties:
-  object_mesh = stl.Mesh.from_file("cvx_{}.stl".format(object_name))
+  object_mesh = stl.Mesh.from_file("models/cvx_{}.stl".format(object_name))
   props = object_mesh.get_mass_properties()
   center_of_mass = props[1]
   inertia_tensor = props[2]
